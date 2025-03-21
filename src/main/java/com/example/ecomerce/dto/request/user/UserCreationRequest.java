@@ -1,4 +1,4 @@
-package com.example.ecomerce.dto.request;
+package com.example.ecomerce.dto.request.user;
 
 import jakarta.validation.constraints.Size;
 import lombok.*;

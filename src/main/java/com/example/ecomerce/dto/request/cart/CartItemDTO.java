@@ -1,21 +1,22 @@
 package com.example.ecomerce.dto.request.cart;
 
-import com.example.ecomerce.entity.CartItem;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class CartDTO {
+import java.math.BigDecimal;
 
-    @Getter
-    private Long id;
-    @Getter
-    private CartItem cartItem;
+@Data
+@NoArgsConstructor
+public class CartItemDTO {
+    private Long productId;
+    private String productName;
+    private int quantity;
+    private BigDecimal price;
 
-    public CartDTO() {
+    public CartItemDTO(Long productId, String productName, int quantity, BigDecimal price) {
+        this.productId = productId;
+        this.productName = productName;
+        this.quantity = quantity;
+        this.price = price;
     }
-
-    public CartDTO(Long id, CartItem cartItem) {
-        this.id = id;
-        this.cartItem = cartItem;
-    }
-
 }
