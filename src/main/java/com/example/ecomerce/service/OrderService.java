@@ -1,12 +1,15 @@
 package com.example.ecomerce.service;
 
-import com.example.ecomerce.dto.request.order.OrderCreationRequest;
+
+import com.example.ecomerce.dto.request.order.OrderDTO;
 import com.example.ecomerce.entity.Cart;
 import com.example.ecomerce.entity.CartItem;
+import com.example.ecomerce.entity.ENUM.OrderStatus;
 import com.example.ecomerce.entity.Order;
 import com.example.ecomerce.entity.OrderItem;
-import com.example.ecomerce.repository.OrderItemRepository;
+import com.example.ecomerce.repository.CartItemRepository;
 import com.example.ecomerce.repository.OrderRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,18 +20,18 @@ import java.util.List;
 
 @Service
 public class OrderService {
-    @Autowired
-    private OrderItemRepository orderItemRepository;
+
     @Autowired
     private OrderRepository orderRepository;
-    @Autowired
-    private ProductService productService;
     @Autowired
     private UserService userService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private CartItemRepository cartItemRepository;
 
-    public Order checkout(Long userId) {
+    @Transactional
+    public OrderDTO checkout(Long userId) {
         // Lấy giỏ hàng của user
         Cart cart = cartService.getCartByUserId(userId);
         if (cart.getItems().isEmpty()) {
@@ -39,7 +42,7 @@ public class OrderService {
         Order order = new Order();
         order.setUser(cart.getUser());
         order.setOrderDate(LocalDateTime.now());
-        order.setStatus("PENDING");
+        order.setStatus(OrderStatus.PENDING);
 
         List<OrderItem> orderItems = new ArrayList<>();
         BigDecimal totalAmount = BigDecimal.ZERO;
@@ -61,10 +64,35 @@ public class OrderService {
         // Lưu đơn hàng
         orderRepository.save(order);
 
+        // Xóa toàn bộ CartItem trước
+        cartItemRepository.deleteCartItemById(cart.getId());
+
         // Xóa giỏ hàng sau khi checkout
         cartService.clearCart(userId);
 
-        return order;
+        // Tạo và trả về OrderDTO
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setUserName(userService.getUserById(userId).get().getUserName());
+        orderDTO.setOrderDate(order.getOrderDate());
+        orderDTO.setStatus(order.getStatus());
+        orderDTO.setTotalPrice(order.getTotalPrice());
+
+        return orderDTO;
+    }
+
+    public List<OrderDTO> getAllOrders(Long userId) {
+        List<Order> orders = orderRepository.findOrderById(userId);
+        List<OrderDTO> orderDTOs = new ArrayList<>();
+
+        for (Order order : orders) {
+            OrderDTO orderDTO = new OrderDTO();
+            orderDTO.setUserName(order.getUser().getUserName());
+            orderDTO.setOrderDate(order.getOrderDate());
+            orderDTO.setStatus(order.getStatus());
+            orderDTO.setTotalPrice(order.getTotalPrice());
+            orderDTOs.add(orderDTO);
+        }
+        return orderDTOs;
     }
 
 }

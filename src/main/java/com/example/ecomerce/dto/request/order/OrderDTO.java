@@ -1,5 +1,7 @@
 package com.example.ecomerce.dto.request.order;
 
+import com.example.ecomerce.entity.ENUM.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,8 @@ public class OrderDTO {
 
     private String userName;
     private BigDecimal totalPrice;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime orderDate;
-    private String status;
+    private OrderStatus status;
 }

@@ -1,5 +1,7 @@
 package com.example.ecomerce.entity;
 
+import com.example.ecomerce.entity.ENUM.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,8 +28,12 @@ public class Order {
     private User user;
 
     private BigDecimal totalPrice;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime orderDate;
-    private String status; // PENDING, SHIPPED, DELIVERED, CANCELED
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status; // PENDING, SHIPPED, DELIVERED, CANCELED
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
