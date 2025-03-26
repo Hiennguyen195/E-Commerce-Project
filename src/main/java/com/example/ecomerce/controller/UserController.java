@@ -1,6 +1,7 @@
 package com.example.ecomerce.controller;
 
 import com.example.ecomerce.dto.request.user.UserCreationRequest;
+import com.example.ecomerce.dto.request.user.UserDTO;
 import com.example.ecomerce.dto.request.user.UserUpdateRequest;
 import com.example.ecomerce.entity.User;
 import com.example.ecomerce.service.UserService;
@@ -32,9 +33,8 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    User getUserById(@PathVariable Long userId) {
-        return userService.getUserById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    UserDTO getUserById(@PathVariable Long userId) {
+        return userService.getUserById(userId);
     }
 
     @DeleteMapping("/{userId}")

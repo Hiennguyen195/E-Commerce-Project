@@ -72,7 +72,7 @@ public class OrderService {
 
         // Tạo và trả về OrderDTO
         OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setUserName(userService.getUserById(userId).get().getUserName());
+        orderDTO.setUserName(userService.getUserById(userId).getUserName());
         orderDTO.setOrderDate(order.getOrderDate());
         orderDTO.setStatus(order.getStatus());
         orderDTO.setTotalPrice(order.getTotalPrice());

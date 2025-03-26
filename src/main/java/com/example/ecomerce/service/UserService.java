@@ -1,10 +1,15 @@
 package com.example.ecomerce.service;
 
 import com.example.ecomerce.dto.request.user.UserCreationRequest;
+import com.example.ecomerce.dto.request.user.UserDTO;
 import com.example.ecomerce.dto.request.user.UserUpdateRequest;
+import com.example.ecomerce.entity.Cart;
 import com.example.ecomerce.entity.User;
+import com.example.ecomerce.repository.CartRepository;
 import com.example.ecomerce.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,23 +19,48 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CartRepository cartRepository;
 
     // Get a user by id
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public UserDTO getUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserName(user.getUserName());
+        userDTO.setPassword(user.getPassword());
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setBirthDate(user.getBirthDate());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setRole(user.getRole());
+        userDTO.setCartId(user.getCart().getId());
+
+        return userDTO;
     }
 
     // Create a new user
     public User createUser(UserCreationRequest request) {
         User user = new User();
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 
         user.setUserName(request.getUserName());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setBirthDate(request.getBirthDate());
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(request.getRole());
+
+        user = userRepository.save(user);
+
+        //Create a new cart for the first time created user
+        Cart newCart = new Cart();
+        newCart.setUser(user);
+        cartRepository.save(newCart);
+
+        user.setCart(newCart);
 
         return userRepository.save(user);
     }
