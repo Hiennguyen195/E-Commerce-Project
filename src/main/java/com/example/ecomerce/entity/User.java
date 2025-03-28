@@ -1,6 +1,8 @@
 package com.example.ecomerce.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,13 +18,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Size(min = 3, message = "USERNAME_INVALID")
     private String userName;
     private String email;
+
+    @Size(min = 8, message = "PASSWORD_INVALID")
     private String password;
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
-    private String role; // CUSTOMER, ADMIN, SELLER
+    private String role; // MANAGER, CUSTOMER, ADMIN
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;

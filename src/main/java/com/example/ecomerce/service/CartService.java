@@ -1,6 +1,6 @@
 package com.example.ecomerce.service;
 
-import com.example.ecomerce.dto.request.CartProductRequest;
+import com.example.ecomerce.dto.request.cart.CartProductRequest;
 import com.example.ecomerce.dto.request.cart.CartItemDTO;
 import com.example.ecomerce.entity.Cart;
 import com.example.ecomerce.entity.CartItem;

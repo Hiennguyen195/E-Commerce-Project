@@ -13,10 +13,10 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserCreationRequest {
 
-    @Size(min = 3, message = "Username must be at least 3 characters long")
+    @Size(min = 3, message = "USERNAME_INVALID")
     String userName;
 
-    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @Size(min = 8, message = "PASSWORD_INVALID")
     String password;
     String firstName;
     String lastName;

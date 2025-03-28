@@ -1,6 +1,5 @@
-package com.example.ecomerce.dto.request;
+package com.example.ecomerce.dto.request.cart;
 
-import com.example.ecomerce.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

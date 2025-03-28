@@ -20,3 +20,6 @@ server:
   port: 8080
   servlet:
     context-path: /api
+
+jwt:
+  signerKey: "xTPyLYjTwvSjwJH9wKYE3W2Wq1QvJ1Kg2O5Qz/b36dOf3ZDo7R7zYuavB07wTs5t"

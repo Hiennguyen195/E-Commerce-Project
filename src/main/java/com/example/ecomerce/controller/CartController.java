@@ -1,6 +1,6 @@
 package com.example.ecomerce.controller;
 
-import com.example.ecomerce.dto.request.CartProductRequest;
+import com.example.ecomerce.dto.request.cart.CartProductRequest;
 
 import com.example.ecomerce.dto.request.cart.CartItemDTO;
 import com.example.ecomerce.service.CartService;

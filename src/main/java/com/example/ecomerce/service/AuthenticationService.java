@@ -1,21 +1,27 @@
 package com.example.ecomerce.service;
 
 import com.example.ecomerce.dto.request.authenticaltion.AuthenticationRequest;
+import com.example.ecomerce.dto.request.authenticaltion.IntrospectRequest;
 import com.example.ecomerce.repository.UserRepository;
 import com.example.ecomerce.response.AuthenticationResponse;
+import com.example.ecomerce.response.IntrospectResponse;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.time.Instant;
 import java.util.Date;
 
@@ -26,9 +32,27 @@ import java.util.Date;
 public class AuthenticationService {
     @Autowired
     UserRepository userRepository;
+
     @NonFinal
-    protected static final String SIGNED_KEY =
-            "xTPyLYjTwvSjwJH9wKYE3W2Wq1QvJ1Kg2O5Qz/b36dOf3ZDo7R7zYuavB07wTs5t";
+    @Value("${jwt.signerKey}")
+    protected String SIGNED_KEY;
+
+    public IntrospectResponse introspect(IntrospectRequest request)
+            throws JOSEException, ParseException {
+        var token = request.getToken();
+
+        JWSVerifier verifier = new MACVerifier(SIGNED_KEY.getBytes());
+
+        SignedJWT signedJWT = SignedJWT.parse(token);
+
+        Date expiration = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+        var verified = signedJWT.verify(verifier);
+
+        return IntrospectResponse.builder()
+                .valid(verified && expiration.after(new Date()))
+                .build();
+    }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         var user = userRepository.findByUserName(request.getUserName())
