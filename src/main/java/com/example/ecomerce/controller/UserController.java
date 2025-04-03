@@ -4,7 +4,7 @@ import com.example.ecomerce.dto.request.user.UserCreationRequest;
 import com.example.ecomerce.dto.request.user.UserDTO;
 import com.example.ecomerce.dto.request.user.UserUpdateRequest;
 import com.example.ecomerce.entity.User;
-import com.example.ecomerce.response.APIResponse;
+import com.example.ecomerce.dto.response.APIResponse;
 import com.example.ecomerce.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.example.ecomerce.response;
+package com.example.ecomerce.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

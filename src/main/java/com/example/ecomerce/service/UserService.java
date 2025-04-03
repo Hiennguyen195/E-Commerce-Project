@@ -4,7 +4,7 @@ import com.example.ecomerce.dto.request.user.UserCreationRequest;
 import com.example.ecomerce.dto.request.user.UserDTO;
 import com.example.ecomerce.dto.request.user.UserUpdateRequest;
 import com.example.ecomerce.entity.Cart;
-import com.example.ecomerce.entity.ENUM.ErrorCode;
+import com.example.ecomerce.entity.enums.ErrorCode;
 import com.example.ecomerce.entity.User;
 import com.example.ecomerce.exception.AppException;
 import com.example.ecomerce.repository.CartRepository;
@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {

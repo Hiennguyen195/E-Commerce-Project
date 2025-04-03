@@ -1,4 +1,4 @@
-package com.example.ecomerce.entity.ENUM;
+package com.example.ecomerce.entity.enums;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -2,11 +2,12 @@ package com.example.ecomerce.controller;
 
 import com.example.ecomerce.dto.request.product.ProductDTO;
 import com.example.ecomerce.dto.request.product.ProductCreationRequest;
-import com.example.ecomerce.entity.Category;
+import com.example.ecomerce.dto.request.product.ProductPageRequest;
 import com.example.ecomerce.entity.Product;
 import com.example.ecomerce.repository.CategoryRepository;
 import com.example.ecomerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +32,8 @@ public class ProductController {
     }
 
     @GetMapping
-    List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    Page<ProductDTO> getAllProducts(ProductPageRequest request) {
+        return productService.getProducts(request);
     }
 
     @GetMapping("/{productId}")

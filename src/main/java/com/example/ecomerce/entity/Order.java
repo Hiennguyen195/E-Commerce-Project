@@ -1,8 +1,7 @@
 package com.example.ecomerce.entity;
 
-import com.example.ecomerce.entity.ENUM.OrderStatus;
+import com.example.ecomerce.entity.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

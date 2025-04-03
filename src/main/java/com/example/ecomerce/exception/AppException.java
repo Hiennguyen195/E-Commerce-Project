@@ -1,6 +1,6 @@
 package com.example.ecomerce.exception;
 
-import com.example.ecomerce.entity.ENUM.ErrorCode;
+import com.example.ecomerce.entity.enums.ErrorCode;
 
 public class AppException extends RuntimeException {
     private ErrorCode errorCode;

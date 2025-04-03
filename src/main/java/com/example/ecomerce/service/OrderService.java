@@ -4,7 +4,7 @@ package com.example.ecomerce.service;
 import com.example.ecomerce.dto.request.order.OrderDTO;
 import com.example.ecomerce.entity.Cart;
 import com.example.ecomerce.entity.CartItem;
-import com.example.ecomerce.entity.ENUM.OrderStatus;
+import com.example.ecomerce.entity.enums.OrderStatus;
 import com.example.ecomerce.entity.Order;
 import com.example.ecomerce.entity.OrderItem;
 import com.example.ecomerce.repository.CartItemRepository;

@@ -1,7 +1,7 @@
 package com.example.ecomerce.entity;
 
-import com.example.ecomerce.entity.ENUM.PaymentMethod;
-import com.example.ecomerce.entity.ENUM.PaymentStatus;
+import com.example.ecomerce.entity.enums.PaymentMethod;
+import com.example.ecomerce.entity.enums.PaymentStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

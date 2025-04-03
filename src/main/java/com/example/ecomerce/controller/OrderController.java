@@ -1,8 +1,6 @@
 package com.example.ecomerce.controller;
 
-import com.example.ecomerce.dto.request.order.OrderCreationRequest;
 import com.example.ecomerce.dto.request.order.OrderDTO;
-import com.example.ecomerce.entity.Order;
 import com.example.ecomerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

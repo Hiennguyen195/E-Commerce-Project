@@ -1,9 +1,9 @@
 package com.example.ecomerce.service;
 
 import com.example.ecomerce.dto.request.payment.PaymentDTO;
-import com.example.ecomerce.entity.ENUM.PaymentStatus;
+import com.example.ecomerce.entity.enums.PaymentStatus;
 import com.example.ecomerce.entity.Order;
-import com.example.ecomerce.entity.ENUM.OrderStatus;
+import com.example.ecomerce.entity.enums.OrderStatus;
 import com.example.ecomerce.entity.Payment;
 import com.example.ecomerce.repository.OrderRepository;
 import com.example.ecomerce.repository.PaymentRepository;

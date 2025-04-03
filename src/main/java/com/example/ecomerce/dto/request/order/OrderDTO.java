@@ -1,6 +1,6 @@
 package com.example.ecomerce.dto.request.order;
 
-import com.example.ecomerce.entity.ENUM.OrderStatus;
+import com.example.ecomerce.entity.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.example.ecomerce.exception;
 
-import com.example.ecomerce.entity.ENUM.ErrorCode;
-import com.example.ecomerce.response.APIResponse;
+import com.example.ecomerce.entity.enums.ErrorCode;
+import com.example.ecomerce.dto.response.APIResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

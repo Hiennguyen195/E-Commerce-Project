@@ -1,4 +1,4 @@
-package com.example.ecomerce.entity.ENUM;
+package com.example.ecomerce.entity.enums;
 
 public enum OrderStatus {
 

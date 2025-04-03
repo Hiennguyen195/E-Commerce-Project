@@ -2,11 +2,16 @@ package com.example.ecomerce.service;
 
 import com.example.ecomerce.dto.request.product.ProductCreationRequest;
 import com.example.ecomerce.dto.request.product.ProductDTO;
+import com.example.ecomerce.dto.request.product.ProductPageRequest;
 import com.example.ecomerce.entity.Category;
 import com.example.ecomerce.entity.Product;
+import com.example.ecomerce.mapper.ProductMapper;
 import com.example.ecomerce.repository.CategoryRepository;
 import com.example.ecomerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -19,9 +24,6 @@ public class ProductService {
     @Autowired
     private CategoryRepository CategoryRepository;
 
-//    public List<Product> getProductsByCategory(Category category) {
-//        return productRepository.findByCategory(category);
-//    }
 
     public List<ProductDTO> getProductsByCategory(Long categoryId) {
         return productRepository.findProductsByCategory(categoryId);
@@ -66,7 +68,10 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public Page<ProductDTO> getProducts(ProductPageRequest request) {
+        return productRepository.findAll(request.toPageable())
+                .map(ProductMapper::toDTO); //Convert to DTO
+
+
     }
 }

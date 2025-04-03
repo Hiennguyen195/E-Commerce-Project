@@ -3,6 +3,8 @@ package com.example.ecomerce.repository;
 import com.example.ecomerce.dto.request.product.ProductDTO;
 import com.example.ecomerce.entity.Category;
 import com.example.ecomerce.entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,4 +32,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "SET p.stock = p.stock + :quantity " +
             "WHERE p.id = :productId")
     int increaseStock(Long productId, int quantity);
+
+    @Override
+    Page<Product> findAll(Pageable pageable);
 }

@@ -1,6 +1,6 @@
 package com.example.ecomerce.dto.request.payment;
 
-import com.example.ecomerce.entity.ENUM.PaymentMethod;
+import com.example.ecomerce.entity.enums.PaymentMethod;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
