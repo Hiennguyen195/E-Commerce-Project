@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort;
 public class ProductPageRequest {
 
     private int page = 0;
-    private int size = 10;
+    private int size = 5;
     private String sort = "id,asc";
 
     public ProductPageRequest() {

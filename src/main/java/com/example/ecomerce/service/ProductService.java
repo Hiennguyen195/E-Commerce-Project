@@ -71,7 +71,5 @@ public class ProductService {
     public Page<ProductDTO> getProducts(ProductPageRequest request) {
         return productRepository.findAll(request.toPageable())
                 .map(ProductMapper::toDTO); //Convert to DTO
-
-
     }
 }

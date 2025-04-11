@@ -32,7 +32,7 @@ public class ProductController {
     }
 
     @GetMapping
-    Page<ProductDTO> getAllProducts(ProductPageRequest request) {
+    Page<ProductDTO> getAllProducts(@RequestBody ProductPageRequest request) {
         return productService.getProducts(request);
     }
 
