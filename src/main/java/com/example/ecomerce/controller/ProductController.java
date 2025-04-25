@@ -3,17 +3,21 @@ package com.example.ecomerce.controller;
 import com.example.ecomerce.dto.request.product.ProductDTO;
 import com.example.ecomerce.dto.request.product.ProductCreationRequest;
 import com.example.ecomerce.dto.request.product.ProductPageRequest;
+import com.example.ecomerce.dto.request.product.ProductUpdateRequest;
+import com.example.ecomerce.dto.response.APIResponse;
 import com.example.ecomerce.entity.Product;
 import com.example.ecomerce.repository.CategoryRepository;
 import com.example.ecomerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/products")
+@CrossOrigin(origins = "http://127.0.0.1:3000")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -22,17 +26,19 @@ public class ProductController {
     private CategoryRepository CategoryRepository;
 
     @PostMapping
-    Product createProduct(@RequestBody ProductCreationRequest request) {
-        return productService.createProduct(request);
+    APIResponse<Product> createProduct(@RequestBody ProductCreationRequest request) {
+        APIResponse<Product> apiResponse = new APIResponse<>();
+        apiResponse.setResult(productService.createProduct(request));
+        return apiResponse;
     }
 
     @PutMapping("/{productId}")
-    Product updateProduct(@PathVariable Long productId, @RequestBody ProductCreationRequest request) {
+    Product updateProduct(@PathVariable Long productId, @RequestBody ProductUpdateRequest request) {
         return productService.updateProduct(productId, request);
     }
 
     @GetMapping
-    Page<ProductDTO> getAllProducts(@RequestBody ProductPageRequest request) {
+    Page<ProductDTO> getAllProducts(@ModelAttribute ProductPageRequest request) {
         return productService.getProducts(request);
     }
 
@@ -47,9 +53,16 @@ public class ProductController {
         productService.deleteProduct(productId);
     }
 
-    @GetMapping("/category/{categoryId}")
-    List<ProductDTO> getProductsByCategory(@PathVariable Long categoryId) {
-        List<ProductDTO> product = productService.getProductsByCategory(categoryId);
-        return product;
+    @GetMapping("/category")
+    Page<ProductDTO> getProductsByCategory(@RequestParam (name = "categoryId", required = false) Long id,
+                                           @ModelAttribute ProductPageRequest request) {
+        return productService.getProductsByCategory(id, request);
+
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> countProduct() {
+        long count = productService.countProducts();
+        return ResponseEntity.ok(count);
     }
 }

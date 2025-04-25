@@ -14,7 +14,13 @@ spring:
       show-sql: true
       properties:
           hibernate:
+                format_sql: true
           dialect: org.hibernate.dialect.MySQL5Dialect
+
+logging:
+    level:
+        org.hibernate.SQL: DEBUG
+        org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 server:
   port: 8080

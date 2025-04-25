@@ -39,7 +39,7 @@ public class CategoryService {
         }
 
         List<ProductDTO> productDTOs = category.getProducts().stream()
-                .map(p -> new ProductDTO(p.getId(), p.getProductName(), p.getDescription(), p.getPrice(), p.getStock()))
+                .map(p -> new ProductDTO(p.getId(), p.getProductName(), p.getDescription(), p.getPrice(), p.getStock(), p.getCategory().getCategoryName()))
                 .collect(Collectors.toList());
 
         return new CategoryDTO(category.getId(), category.getCategoryName(), productDTOs);

@@ -21,11 +21,12 @@ import java.text.ParseException;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@CrossOrigin(origins = "http://127.0.0.1:3000")
 public class AuthenticationController {
     @Autowired
     AuthenticationService authenticationService;
 
-    @PostMapping("/token")
+    @PostMapping("/login")
     APIResponse<AuthenticationResponse> authenticateUser(@RequestBody AuthenticationRequest request) {
         var result = authenticationService.authenticate(request);
         return APIResponse.<AuthenticationResponse>builder()

@@ -1,7 +1,6 @@
 package com.example.ecomerce.repository;
 
 import com.example.ecomerce.dto.request.product.ProductDTO;
-import com.example.ecomerce.entity.Category;
 import com.example.ecomerce.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,12 +13,11 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByCategory(Category category);
 
-    @Query("SELECT new com.example.ecomerce.dto.request.product.ProductDTO(p.id, p.productName, p.description, p.price, p.stock ) " +
+    @Query("SELECT new com.example.ecomerce.dto.request.product.ProductDTO(p.id, p.productName, p.description, p.price, p.stock, p.category.categoryName ) " +
             "FROM Product p " +
             "WHERE p.category.id = :categoryId")
-    List<ProductDTO> findProductsByCategory(@Param("categoryId") Long categoryId);
+    Page<ProductDTO> findProductsByCategory(@Param("categoryId") Long categoryId, Pageable pageable);
 
     @Modifying
     @Query("UPDATE Product p " +
@@ -35,4 +33,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Override
     Page<Product> findAll(Pageable pageable);
+
+    @Query("SELECT p FROM Product p WHERE p.id = :id")
+    Product findByProductId(Long id);
 }

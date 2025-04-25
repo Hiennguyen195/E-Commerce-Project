@@ -1,5 +1,6 @@
 package com.example.ecomerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
@@ -31,6 +32,7 @@ public class User {
     private String role; // MANAGER, CUSTOMER, ADMIN
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Cart cart;
 
     public User(Long id, String userName, String email, String password, String firstName, String lastName, LocalDate birthDate, String role) {

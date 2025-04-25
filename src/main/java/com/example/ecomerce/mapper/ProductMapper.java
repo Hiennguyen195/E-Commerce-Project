@@ -13,7 +13,8 @@ public class ProductMapper {
                 product.getProductName(),
                 product.getDescription(),
                 product.getPrice(),
-                product.getStock()
+                product.getStock(),
+                product.getCategory().getCategoryName()
         );
     }
 
